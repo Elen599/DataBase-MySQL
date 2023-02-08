@@ -2,6 +2,10 @@
 1. Создайте таблицу с мобильными телефонами, используя графический интерфейс. Необходимые поля таблицы: product_name (название товара), manufacturer (производитель), product_count (количество), price (цена). Заполните БД произвольными данными.
 2. Напишите SELECT-запрос, который выводит название товара, производителя и цену для товаров, количество которых превышает 2
 3. Выведите SELECT-запросом весь ассортимент товаров марки “Samsung”.
+
+4.* С помощью SELECT-запроса с оператором LIKE / REGEXP найти:
+4.1 Товары, в которых есть упоминание "Iphone"
+4.2 Товары, в которых есть упоминание "Samsung"
 */
 
 
@@ -29,21 +33,26 @@ INSERT INTO `` (`id`, `product_name`, `manufacturer`, `product_count`, `price`) 
 INSERT INTO `` (`id`, `product_name`, `manufacturer`, `product_count`, `price`) VALUE (11, `iphone 14`, `apple`, `9`, `104 000`);
 
 
+-- Подключение к базе данных:
 USE cell_phones;
 
 SELECT * FROM new_table;
 
+-- SELECT-запрос, который выводит название товара, производителя и цену для товаров, количество которых превышает 2
 SELECT price, product_name
 FROM new_table
-WHERE product_count <= 2;
+WHERE product_count >= 2;
 
+-- SELECT-запрос, который выводит весь ассортимент товаров марки “Samsung”
 SELECT * FROM new_table
 WHERE manufacturer = "Samsung";
 
+-- SELECT-запрос с помощью оператора LIKE 
 SELECT product_name
 FROM new_table
 WHERE manufacturer like "Samsung";
 
+-- SELECT-запроса с помощью оператора REGEXP
 SELECT manufacturer
 FROM new_table
 WHERE product_name regexp "iphone";
