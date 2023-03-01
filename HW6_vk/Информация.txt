@@ -1,0 +1,28 @@
+ERROR 1451 (23000) at line 712: Cannot delete or update a parent row: a foreign key constraint fails (`db_3yyx8vbgc_3yz8ndta3`.`friend_requests`, CONSTRAINT `friend_requests_ibfk_2` FOREIGN KEY (`target_user_id`) REFERENCES `users` (`id`)
+
+#1451 - Cannot delete or update a parent row: a foreign key constraint fails (`admin_bd`.`pics`, CONSTRAINT `fk_pics_h1` FOREIGN KEY (`house_id`) REFERENCES `houses` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+
+На запись в таблице houses, которую вы хотите удалить ссылаются записи из таблицы pics, нужно не убирать связь, а изменить параметры ON DELETE и ON UPDATE для таблицы pics относительно внешнего ключа house_id, если вам нужно что бы записи из pics, принадлежащие house_id, при удалении из house тоже удалялись то ON UPDATE CASCADE ON DELETE CASCADE, если не нужно что бы удалялись, то ON UPDATE SET NULL ON DELETE SET NULL.
+Удалите внешний ключ и создайте новых с правильными параметрами.
+
+ALTER TABLE `admin_bd`.`pics` DROP FOREIGN KEY `fk_pics_h1`
+ALTER TABLE `admin_bd`.`pics` ADD CONSTRAINT `fk_pics_h1` FOREIGN KEY (`house_id`) REFERENCES `admin_bd`.`houses`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+
+DELETE FROM users
+where id = "3";
+
+ALTER TABLE `db_3yyx8vbgc_3yz8ndta3`.`friend_requests` DROP FOREIGN KEY `friend_requests_ibfk_2`
+ALTER TABLE `db_3yyx8vbgc_3yz8ndta3`.`friend_requests` ADD CONSTRAINT `friend_requests_ibfk_2` FOREIGN KEY (`target_user_id`) REFERENCES `db_3yyx8vbgc_3yz8ndta3`.`users`(`id`) ON UPDATE CASCADE ON DELETE CASCADE
+
+////////////////////////////////////////////////
+отменить ограничения внешнего ключа:
+SET FOREIGN_KEY_CHECKS = 0;
+
+DELETE FROM users
+where id = "3";
+
+select * from users;
+
+////////////////////////////////////////////////////
+Сбросьте ограничение внешнего ключа:
+SET FOREIGN_KEY_CHECKS = 1;

@@ -1,0 +1,23 @@
+ДЛЯ СРАБОТКИ ЗАДАНИЯ 1 ДЗ6:
+
+DETERMINISTIC, NO SQL или READS SQL DATA в своем объявлении и включено ведение двоичного журнала.
+При импорте базы данных в mysql я получил следующую ошибку:
+1418 (HY000) at line 10185: This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration and binary logging is enabled (you *might* want to use the less safe log_bin_trust_function_creators variable)
+
+Есть два способа исправить это:
+
+1. Выполните следующее в консоли MySQL:
+SET GLOBAL log_bin_trust_function_creators = 1;
+
+2. Добавьте следующее в файл конфигурации mysql.ini:
+log_bin_trust_function_creators = 1;
+
+Этот параметр ослабляет проверку недетерминированных функций. 
+Недетерминированные функции — это функции, которые изменяют данные 
+(т. е. имеют операторы обновления, вставки или удаления). 
+
+Обратите внимание: если ведение двоичного журнала НЕ включено, этот параметр не применяется.
+
+
+Ссылка на данную статью:
+https://stackoverflow.com/questions/26015160/deterministic-no-sql-or-reads-sql-data-in-its-declaration-and-binary-logging-i

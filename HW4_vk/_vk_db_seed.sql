@@ -7,7 +7,7 @@ CREATE TABLE users (
 	id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     firstname VARCHAR(50),
     lastname VARCHAR(50) COMMENT 'Фамиль',
-    email VARCHAR(120) UNIQUE,
+    email VARCHAR(120)UNIQUE ,
     phone BIGINT, 
     INDEX users_phone_idx(phone),
     INDEX users_firstname_lastname_idx(firstname, lastname)
